@@ -4,5 +4,10 @@ def KnockKnock( str, str2 ):
 	print "Knock Knock!"
 	return;
 
-
 KnockKnock( str = "Who's there?", str2 = "Deja")
+
+def middle (str, str2):
+	return str[:5] +" "+ str2 +" "+ str[5:]
+
+print (middle("Worstever ","joke"))
+
