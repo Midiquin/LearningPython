@@ -1,0 +1,8 @@
+def KnockKnock( str, str2 ):
+	print "Knock Knock!", str, str2
+	print str2, "who?"
+	print "Knock Knock!"
+	return;
+
+
+KnockKnock( str = "Who's there?", str2 = "Deja")
