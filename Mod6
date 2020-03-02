@@ -1,0 +1,31 @@
+import sys
+import datetime
+
+data = datetime.datetime.now().time()
+
+print("1.  Try the code below and revise it to current time. ")
+print("")
+
+print(data)
+
+print("")
+
+from datetime import timedelta 
+from datetime import datetime 
+
+print("2.  Add the timedelta to the datetime and subtract 60 second and added 2 year \t")
+print("")
+print datetime.now() - timedelta(seconds=60) + timedelta(days=730) 
+d = timedelta(days = 100, hours = 10, minutes = 13)
+(d.days, d.seconds, d.microseconds)
+(-1, 86399, 999999)
+print("")
+print("3.  Create a timedelta object representing 100 days, 10 hours, and 13 minutes.")
+print("")
+print(d)
+print("")
+print("4.  Write a function that takes two arguments (feet and inches) with this time object")
+print("")
+datetime_object = datetime.now() 
+print(datetime_object) 
+print("I am very confused about this problem... ")
