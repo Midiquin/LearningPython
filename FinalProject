@@ -1,0 +1,63 @@
+# Import libraries
+import requests
+import urllib.request
+import datetime
+from bs4 import BeautifulSoup
+import os.path
+import pandas as pd
+from pandas import ExcelWriter
+from pandas import ExcelFile
+import openpyxl as op
+from openpyxl import load_workbook
+
+
+url = 'https://www.youtube.com/playlist?list=PL5CAAbB8OMn1VS5xra9r8QUgW23IyDQq-'
+
+response = requests.get(url)
+
+page = response.content
+
+soup = BeautifulSoup(page, "html.parser")
+
+GetPage = soup.find('div', id = 'content')
+
+VideoName = GetPage.find_all('a', class_='pl-video-title-link yt-uix-tile-link yt-uix-sessionlink spf-link')
+CreatorName = GetPage.find_all('div', class_='pl-video-owner')
+
+VideoArray = []
+NameArray = []
+Date = []
+
+for n in VideoName:
+    VName =(n.get_text().strip())
+    VideoArray.append(VName)
+
+for n in CreatorName:
+    CName =(n.get_text().strip())
+    NameArray.append(CName)
+    Date.append(datetime.datetime.today())
+
+df_from_arr = pd.DataFrame(data=[VideoArray,NameArray,Date],index=[
+    'Video Title',
+    'Creator',
+    'Date'
+  ]).T
+
+print("Playlist Information")
+print(df_from_arr)
+
+if os.path.isfile('YouTube_Archive.xlsx'):
+    print ("File exist")
+    df = pd.read_excel ('YouTube_Archive.xlsx')
+    print("New")
+    ass = df.append(df_from_arr)
+    print(ass)
+    writer = ExcelWriter('YouTube_Archive.xlsx')
+    ass.to_excel(writer, index=False)
+    writer.save()
+     
+else:
+    print ("File not exist")
+    writer = ExcelWriter('YouTube_Archive.xlsx')
+    df_from_arr.to_excel(writer, index=False)
+    writer.save()
